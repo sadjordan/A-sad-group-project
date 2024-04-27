@@ -10,7 +10,7 @@ using namespace std;
 class RaceTrack {
 private:
     int size;
-    vector<vector<char>> track;
+    vector<vector<char> > track;
 
 public:
     RaceTrack(int s) : size(s) {
@@ -61,7 +61,7 @@ private:
     int maxSteps;
 
 public:
-    Racer(string n, int minS, int maxS) : name(n), minSteps(minS), maxSteps(maxS), row(0), col(0) {}
+    Racer(string n, int minS, int maxS) : name(n), row(0), col(0), minSteps(minS), maxSteps(maxS) {}
 
     void move(int steps) {
         col += steps;
@@ -124,4 +124,3 @@ int main() {
 
     return 0;
 }
-
