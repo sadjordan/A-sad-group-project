@@ -4,10 +4,29 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <list>
+#include <string>
+#include <iomanip>
 
 using namespace std;
 
 int main() {
+
+
+    string track[10][8] = {
+        {"   ", "   ", "   ", " x ", "   ", " x ", "   ", "   "},
+        {" x ", "", "", "", "", "", "", "   "},
+        {"   ", "", "", "", "", "", "", " x "},
+        {" x ", "", "", "", "", "", "", " x "},
+        {"   ", "", "", "", "", "", "", " x "},
+        {" x ", "", "", "", "", "", "", "   "},
+        {"   ", "", "", "", "", "", "", "   "},
+        {"   ", "", "", "", "", "", "", "   "},
+        {"   ", "", "", "", "", "", "", "   "},
+        {"   ", "   ", "   ", " x ", " x ", " x ", "   ", "   "}
+        };
+
+
     for (int i = 0; i < 10; i++) {
 
         if (i == 0 || i == 9) {
@@ -18,7 +37,7 @@ int main() {
                 }
             }
             for (int k = 0; k < 8; k++) {
-                    cout << "|   ";
+                    cout << "|" << track[i][k];
                     if (k == 7) {
                         cout << "|" << endl;
                     }
@@ -33,7 +52,7 @@ int main() {
 
                 for (int m = 0; m < 8; m++) {
                 if (m == 0) {
-                    cout << "|   |";
+                    cout << "|" << track[i][m]  << "|";
                 }
                 if (m >= 1 && m != 7 && m != 6){
                     cout << "    ";
@@ -42,7 +61,7 @@ int main() {
                     cout << "   |";
                 }
                 if (m == 7) {
-                    cout << "   |" << endl;
+                    cout << track[i][m] <<"|" << endl;
                 }
                 }
             
