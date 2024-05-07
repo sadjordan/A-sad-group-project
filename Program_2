@@ -76,7 +76,7 @@ int main() {
         if ((flash_position == superman_position) && superman_position <= 12) {
             track[13][superman_position - 1] = "sf ";
         } else if ((superman_position == flash_position) && superman_position <= 25) {
-            track[((superman_position - 12)-13)*-1][7] = "sf ";
+            track[((superman_position - 12)-13)*-1][11] = "sf ";
         } else if ((flash_position == superman_position) && superman_position <= 36) {
             track[0][((superman_position - 25) - 11)*-1] = "sf ";
         } else if ((flash_position == superman_position) && superman_position <= 48) {
