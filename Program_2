@@ -1,0 +1,165 @@
+//A-sad-group-project
+//Increased track size done
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <list>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+
+    srand(time(nullptr));
+
+    int superman_position = 0;
+    int flash_position = 0;
+    
+    
+    while (true) {
+        superman_position += rand() % 3 + 3; // Steps: 3 to 5
+        flash_position += rand() % 5 + 2; // Steps: 2 to 6
+
+
+        if (superman_position > 48) {
+            superman_position = 48;
+        }
+        
+        if (flash_position > 48) {
+            flash_position = 48;
+        }
+
+        cout << "Superman position: " << superman_position << ", Flash position: " << flash_position << endl;
+
+
+        string track[14][12] = {
+            {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+            {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   " , "   ", "   ", "   ", "   "}
+            };
+
+
+        if (superman_position <= 12 && superman_position != flash_position) {
+            track[13][superman_position - 1] = " s ";
+        } else if (superman_position <= 25 && superman_position != flash_position) {
+            track[((superman_position - 12)-13)*-1][11] = " s ";
+        } else if (superman_position <= 36 && superman_position != flash_position) {
+            track[0][((superman_position - 25) - 11)*-1] = " s ";
+        } else if (superman_position <= 48 && superman_position != flash_position) {
+            track[(superman_position - 12)-24][0] = " s ";
+        } 
+
+        if (flash_position <= 12 && superman_position != flash_position) {
+            track[13][flash_position - 1] = " f ";
+        } else if (flash_position <= 25 && superman_position != flash_position) {
+            track[((flash_position - 12)-13)*-1][11] = " f ";
+        } else if (flash_position <= 36 && superman_position != flash_position) {
+            track[0][((flash_position - 25) - 11)*-1] = " f ";
+        } else if (flash_position <= 48 && superman_position != flash_position) {
+            track[(flash_position - 12)-24][0] = " f ";
+        }
+        
+        if ((flash_position == superman_position) && superman_position <= 12) {
+            track[13][superman_position - 1] = "sf ";
+        } else if ((superman_position == flash_position) && superman_position <= 25) {
+            track[((superman_position - 12)-13)*-1][7] = "sf ";
+        } else if ((flash_position == superman_position) && superman_position <= 36) {
+            track[0][((superman_position - 25) - 11)*-1] = "sf ";
+        } else if ((flash_position == superman_position) && superman_position <= 48) {
+            track[(superman_position - 12)-24][0] = "sf ";
+        }
+
+        for (int i = 0; i < 14; i++) {
+
+            if (i == 0 || i == 13) {
+                for (int j = 0; j < 12; j++) {
+                    cout << "+---";
+                    if (j == 11) {
+                        cout << "+" << endl;
+                    }
+                }
+                for (int k = 0; k < 12; k++) {
+                        cout << "|" << track[i][k];
+                        if (k == 11) {
+                            cout << "|" << endl;
+                        }
+                    }
+                for (int l = 0; l < 12; l++) {
+                    cout << "+---";
+                    if (l == 11) {
+                        cout << "+" << endl;
+                    }
+                }
+                } else if (i >= 1 && i != 13) {
+
+                    for (int m = 0; m < 12; m++) {
+                    if (m == 0) {
+                        cout << "|" << track[i][m]  << "|";
+                    }
+                    if (m >= 1 && m != 10 && m != 11) {
+                        cout << "    ";
+                    }
+                    if (m == 10) {
+                        cout << "   |";
+                    }
+                    if (m == 11) {
+                        cout << track[i][m] <<"|" << endl;
+                    }
+                    }
+                
+                if (12 > i) {
+
+                    for (int n = 0; n < 12; n++) {
+                    
+                    if (n == 0) {
+                        cout << "+---+";
+                    }
+
+                    if (n >= 1 && n != 10 && n != 11) {
+                        cout << "    ";
+                    }
+
+                    if (n == 10) {
+                        cout << "   +";
+                    }
+
+                    if (n == 11) {
+                        cout << "---+" << endl;
+                    }
+                    }
+                }
+                }
+            }
+            cout << endl;
+            cout << "---------------------------------" << endl;
+            cout << endl;
+            if (superman_position >= 48 && flash_position >= 48) {
+                cout << "It's a tie!" << endl;
+                cout << endl;
+                break;
+            } else if (superman_position >= 48) {
+                cout << "Superman (s) wins!" << endl;
+                cout << endl;
+                break;
+            } else if (flash_position >= 48) {
+                cout << "Flash (f) wins!" << endl;
+                cout << endl;
+                break;
+            }
+            cin.get();
+    }   
+}
