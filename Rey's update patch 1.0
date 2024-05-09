@@ -1,0 +1,81 @@
+//A-sad-group-project 2.0
+//Increased track size done
+//+ New racer function (Name and speed)
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <list>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+// General variables
+int borderLength;
+
+// Racer position related variables
+int newRacer_startposition = 0;
+int superman_startposition = 0;
+int flash_startposition = 0;
+
+// New racer, with input validation :)
+void ChooseYourRacer(string &newRacer) {
+    // Variables for racer's name and initial
+    string racerName;
+    char newRacer_initial;
+
+    while (true) {
+        cout << "Enter your racer's name: ";
+        getline(cin, racerName);
+
+        if (!racerName.empty()) {
+            newRacer = racerName;
+            newRacer_initial = newRacer[0]; // Determine initial
+            cout << "Welcome " << newRacer << "!" << endl;
+            break;
+        } else {
+            cout << "Please enter a name." << endl << endl;
+        }
+    }
+
+    // Determining newRacer's speed kachowwwww
+    int newRacer_min;
+    int newRacer_max;
+
+    while (true) {
+        cout << "And how fast is " << newRacer << "??!!" << endl
+             << "Please enter 2 numbers separated by a space: ";
+        cin >> newRacer_min >> newRacer_max;
+
+        if (newRacer_min >= 0 && newRacer_max <= 6) {
+            cout << "To your racetrack " << newRacer << "!";
+            break;
+        } else {
+            cout << "Invalid speed. Please pick within range of 0 - 6." << endl;
+        }
+    }    
+}
+
+// Printing customizable borders yipeeee
+void generateBorder(int borderLength) {
+    for (int i = 0; i < borderLength; i++) {
+        cout << "-";
+    }    
+}
+
+// Main function
+int main () {
+    srand(time(nullptr));
+
+    generateBorder(10);
+    cout << "Welcome to Program 2 : Extended Race!";
+    generateBorder(10);
+    cout << endl;
+
+    string newRacer;
+    ChooseYourRacer(newRacer);
+    
+    return 0;
+}
