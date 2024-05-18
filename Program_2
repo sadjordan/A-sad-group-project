@@ -1,5 +1,8 @@
 //A-sad-group-project
 //Increased track size done
+//Multiple rounds
+//New racer added
+//Root for racer
 
 #include <iostream>
 #include <vector>
@@ -8,158 +11,301 @@
 #include <list>
 #include <string>
 #include <iomanip>
+#include <typeinfo>
 
 using namespace std;
 
+// Cheerleader function to cheer for racers
+void cheerleader(int superman_position, int flash_position, int zoom_position) {
+    if (superman_position == flash_position && superman_position == zoom_position && superman_position < 48) {
+        cout << "Go go go!!! ✺◟( ᐛ )◞✺ ";
+    } else if (superman_position > flash_position && superman_position > zoom_position) {
+        cout << "Don't give up Flash and Zoom!! ✺◟( ᐛ )◞✺";
+    } else if (zoom_position > flash_position && zoom_position > superman_position) {
+        cout << "Zoom's taking the lead! ✺◟( ᐛ )◞✺";
+    } else if (flash_position > superman_position && flash_position > zoom_position) {
+        cout << "Go fast like lightning, Flash! (۶•̀ᴗ•́)۶//／／";
+    } else if (zoom_position == flash_position && zoom_position > superman_position) {
+        cout << "Go go go!!! ✺◟( ᐛ )◞✺";
+    } else if (superman_position == zoom_position && superman_position > flash_position) {
+        cout << "Will Superman take over?! (۶•̀ᴗ•́)۶//／／";
+    } else if (superman_position == flash_position && superman_position > zoom_position) {
+        cout << "Will Flash take over?! (۶•̀ᴗ•́)۶//／／";
+    }
+    cout << endl;
+}
+
 int main() {
-
-    srand(time(nullptr));
-
-    int superman_position = 0;
-    int flash_position = 0;
-    
-    
-    while (true) {
-        superman_position += rand() % 3 + 3; // Steps: 3 to 5
-        flash_position += rand() % 5 + 2; // Steps: 2 to 6
-
-
-        if (superman_position > 48) {
-            superman_position = 48;
-        }
+    int laps = 0;
         
-        if (flash_position > 48) {
-            flash_position = 48;
+        while (true) {
+            cout << "Enter the number of laps: ";
+            string input;
+            cin >> input;
+            
+            bool validInput = true;
+            for (char c : input) {
+                if (!isdigit(c)) {
+                    validInput = false;
+                    break;
+                }
+            }
+            
+            if (validInput) {
+                laps = stoi(input);
+                if (laps > 0){
+                    break;
+                } else {
+                    cout << "ERROR INTEGER 0: Please enter an integer larger than 0!" << endl;
+                }
+            } else {
+                cout << "ERROR INVALID INPUT: Please enter a valid integer!" << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
         }
 
-        cout << "Superman position: " << superman_position << ", Flash position: " << flash_position << endl;
+    string rootingFor;
+    cout << "Who are you rooting for (Superman, Flash, Zoom) (Enter their full name with the first letter capitalised): ";
+    cin >> rootingFor;
 
+    int truesuperman_position = 0;
+    int trueflash_position = 0;
+    int truezoom_position = 0;
 
-        string track[14][12] = {
-            {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
-            {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   " , "   ", "   ", "   ", "   "}
+    while (true) {
+        srand(time(nullptr));
+
+        int superman_position = 0;
+        int flash_position = 0;
+        int zoom_position = 0;
+        int lap_count = 0;
+        
+        cin.get();
+
+        while (true) {
+            
+            truesuperman_position += rand() % 3 + 3;
+            trueflash_position += rand() % 5 + 2;
+            truezoom_position += rand() % 7 + 1;
+
+            
+            if (truesuperman_position > (48 * laps)) {
+                truesuperman_position = (48 * laps);
+            }
+            if (trueflash_position > (48 * laps)) {
+                trueflash_position = (48 * laps);
+            }
+            if (truezoom_position > (48 * laps)) {
+                truezoom_position = (48 * laps);
+            }
+
+           
+            lap_count = truesuperman_position / 48;
+            cout << "Lap count for Superman: " << lap_count << endl;
+            if (truesuperman_position > 48 && truesuperman_position - (48 * lap_count) != 0) {
+                superman_position = truesuperman_position - 48 * lap_count;
+            } else if (truesuperman_position - (48 * lap_count) == 0) {
+                superman_position = 48;
+            } else if (superman_position <= 48) {
+                superman_position = truesuperman_position;
+            }
+
+            
+            lap_count = trueflash_position / 48;
+            cout << "Lap count for Flash: " << lap_count << endl;
+            if (trueflash_position > 48 && trueflash_position - (48 * lap_count) != 0) {
+                flash_position = trueflash_position - 48 * lap_count;
+            } else if (trueflash_position - (48 * lap_count) == 0) {
+                flash_position = 48;
+            } else if (flash_position <= 48) {
+                flash_position = trueflash_position;
+            }
+            
+
+            lap_count = truezoom_position / 48;
+            cout << "Lap count for Zoom: " << lap_count << endl;
+            if (truezoom_position > 48 && truezoom_position - (48 * lap_count) != 0) {
+                zoom_position = truezoom_position - 48 * lap_count;
+            } else if (truezoom_position - (48 * lap_count) == 0) {
+                zoom_position = 48;
+            } else if (zoom_position <= 48) {
+                zoom_position = truezoom_position;
+            }
+            
+            cout << "Superman position: " << truesuperman_position << ", Flash position: " << trueflash_position << ", Zoom position: " << truezoom_position << endl;
+
+            
+            string track[14][12] = {
+                {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "", "", "", "", "", "", "", "", "", "", "   "},
+                {"   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   ", "   "}
             };
 
-
-        if (superman_position <= 12 && superman_position != flash_position) {
-            track[13][superman_position - 1] = " s ";
-        } else if (superman_position <= 25 && superman_position != flash_position) {
-            track[((superman_position - 12)-13)*-1][11] = " s ";
-        } else if (superman_position <= 36 && superman_position != flash_position) {
-            track[0][((superman_position - 25) - 11)*-1] = " s ";
-        } else if (superman_position <= 48 && superman_position != flash_position) {
-            track[(superman_position - 12)-24][0] = " s ";
-        } 
-
-        if (flash_position <= 12 && superman_position != flash_position) {
-            track[13][flash_position - 1] = " f ";
-        } else if (flash_position <= 25 && superman_position != flash_position) {
-            track[((flash_position - 12)-13)*-1][11] = " f ";
-        } else if (flash_position <= 36 && superman_position != flash_position) {
-            track[0][((flash_position - 25) - 11)*-1] = " f ";
-        } else if (flash_position <= 48 && superman_position != flash_position) {
-            track[(flash_position - 12)-24][0] = " f ";
-        }
-        
-        if ((flash_position == superman_position) && superman_position <= 12) {
-            track[13][superman_position - 1] = "sf ";
-        } else if ((superman_position == flash_position) && superman_position <= 25) {
-            track[((superman_position - 12)-13)*-1][11] = "sf ";
-        } else if ((flash_position == superman_position) && superman_position <= 36) {
-            track[0][((superman_position - 25) - 11)*-1] = "sf ";
-        } else if ((flash_position == superman_position) && superman_position <= 48) {
-            track[(superman_position - 12)-24][0] = "sf ";
-        }
-
-        for (int i = 0; i < 14; i++) {
-
-            if (i == 0 || i == 13) {
-                for (int j = 0; j < 12; j++) {
-                    cout << "+---";
-                    if (j == 11) {
-                        cout << "+" << endl;
-                    }
+            
+            auto updateTrack = [&](int position, const string& marker) {
+                if (position <= 12) {
+                    track[13][position - 1] = marker;
+                } else if (position <= 25) {
+                    track[((position - 12) - 13) * -1][11] = marker;
+                } else if (position <= 36) {
+                    track[0][((position - 25) - 11) * -1] = marker;
+                } else if (position <= 48) {
+                    track[(position - 12) - 24][0] = marker;
                 }
-                for (int k = 0; k < 12; k++) {
+            };
+           
+            if (superman_position != flash_position && superman_position != zoom_position) {
+                updateTrack(superman_position, " s ");
+            }
+            if (flash_position != superman_position && flash_position != zoom_position) {
+                updateTrack(flash_position, " f ");
+            }
+            if (zoom_position != superman_position && zoom_position != flash_position) {
+                updateTrack(zoom_position, " z ");
+            }
+
+           
+            if (superman_position == flash_position && superman_position == zoom_position) {
+                updateTrack(superman_position, "sfz");
+            } else if (superman_position == flash_position) {
+                updateTrack(superman_position, "sf ");
+            } else if (superman_position == zoom_position) {
+                updateTrack(superman_position, "sz ");
+            } else if (flash_position == zoom_position) {
+                updateTrack(flash_position, "fz ");
+            }
+
+            // Display the track
+            for (int i = 0; i < 14; i++) {
+                if (i == 0 || i == 13) {
+                    for (int j = 0; j < 12; j++) {
+                        cout << "+---";
+                        if (j == 11) {
+                            cout << "+" << endl;
+                        }
+                    }
+                    for (int k = 0; k < 12; k++) {
                         cout << "|" << track[i][k];
                         if (k == 11) {
                             cout << "|" << endl;
                         }
                     }
-                for (int l = 0; l < 12; l++) {
-                    cout << "+---";
-                    if (l == 11) {
-                        cout << "+" << endl;
+                    for (int l = 0; l < 12; l++) {
+                        cout << "+---";
+                        if (l == 11) {
+                            cout << "+" << endl;
+                        }
                     }
-                }
                 } else if (i >= 1 && i != 13) {
-
                     for (int m = 0; m < 12; m++) {
-                    if (m == 0) {
-                        cout << "|" << track[i][m]  << "|";
+                        if (m == 0) {
+                            cout << "|" << track[i][m] << "|";
+                        }
+                        if (m >= 1 && m != 10 && m != 11) {
+                            cout << "    ";
+                        }
+                        if (m == 10) {
+                            cout << "   |";
+                        }
+                        if (m == 11) {
+                            cout << track[i][m] << "|" << endl;
+                        }
                     }
-                    if (m >= 1 && m != 10 && m != 11) {
-                        cout << "    ";
+                    if (12 > i) {
+                        for (int n = 0; n < 12; n++) {
+                            if (n == 0) {
+                                cout << "+---+";
+                            }
+                            if (n >= 1 && n != 10 && n != 11) {
+                                cout << "    ";
+                            }
+                            if (n == 10) {
+                                cout << "   +";
+                            }
+                            if (n == 11) {
+                                cout << "---+" << endl;
+                            }
+                        }
                     }
-                    if (m == 10) {
-                        cout << "   |";
-                    }
-                    if (m == 11) {
-                        cout << track[i][m] <<"|" << endl;
-                    }
-                    }
-                
-                if (12 > i) {
-
-                    for (int n = 0; n < 12; n++) {
-                    
-                    if (n == 0) {
-                        cout << "+---+";
-                    }
-
-                    if (n >= 1 && n != 10 && n != 11) {
-                        cout << "    ";
-                    }
-
-                    if (n == 10) {
-                        cout << "   +";
-                    }
-
-                    if (n == 11) {
-                        cout << "---+" << endl;
-                    }
-                    }
-                }
                 }
             }
+
             cout << endl;
             cout << "---------------------------------" << endl;
             cout << endl;
-            if (superman_position >= 48 && flash_position >= 48) {
+
+           
+            cheerleader(superman_position, flash_position, zoom_position);
+            
+            
+            if (truesuperman_position >= (48 * laps) && trueflash_position >= (48 * laps) && truezoom_position >= (48 * laps)) {
                 cout << "It's a tie!" << endl;
+                if (rootingFor == "Superman" || rootingFor == "Flash" || rootingFor == "Zoom") {
+                    cout << "But your racer, " << rootingFor << ", did well!" << endl;
+                }
                 cout << endl;
                 break;
-            } else if (superman_position >= 48) {
+            } else if (truesuperman_position >= (48 * laps) && trueflash_position >= (48 * laps)) {
+                cout << "It's a tie!" << endl;
+                if (rootingFor == "Superman" || rootingFor == "Flash") {
+                    cout << "But your racer, " << rootingFor << ", did well!" << endl;
+                }
+                cout << endl;
+                break;
+            } else if (truesuperman_position >= (48 * laps) && truezoom_position >= (48 * laps)) {
+                cout << "It's a tie!" << endl;
+                if (rootingFor == "Superman" || rootingFor == "Zoom") {
+                    cout << "But your racer, " << rootingFor << ", did well!" << endl;
+                }
+                cout << endl;
+                break;
+            } else if (truezoom_position >= (48 * laps) && trueflash_position >= (48 * laps)) {
+                cout << "It's a tie!" << endl;
+                if (rootingFor == "Zoom" || rootingFor == "Flash") {
+                    cout << "But your racer, " << rootingFor << ", did well!" << endl;
+                }
+                cout << endl;
+                break;
+            } else if (truesuperman_position >= (48 * laps)) {
                 cout << "Superman (s) wins!" << endl;
+                if (rootingFor == "Superman") {
+                    cout << "Congratulations! Your racer, Superman, won!" << endl;
+                }
                 cout << endl;
                 break;
-            } else if (flash_position >= 48) {
-                cout << "Flash (f) wins!" << endl;
+            } else if (trueflash_position >= (48 * laps)) {
+                cout << "Flash (f) wins this round!" << endl;
+                if (rootingFor == "Flash") {
+                    cout << "Congratulations! Your racer, Flash, won!" << endl;
+                }
+                cout << endl;
+                break;
+            } else if (truezoom_position >= (48 * laps)) {
+                cout << "Zoom (z) wins this round!" << endl;
+                if (rootingFor == "Zoom") {
+                    cout << "Congratulations! Your racer, Zoom, won!" << endl;
+                }
                 cout << endl;
                 break;
             }
-            cin.get();
-    }   
+            
+             cin.get();
+            
+        }
+
+        break;
+    }
+    return 0;
 }
